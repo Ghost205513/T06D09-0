@@ -1,57 +1,78 @@
-/*------------------------------------
-	Здравствуй, человек!
-	Чтобы получить ключ 
-	поработай с комментариями.
--------------------------------------*/
-
 #include <stdio.h>
+#define NMAX 10
 
-void input (int *buffer, int *length);
-void output (int *buffer, int length);
+
+int input(int *buffer, int *length);
+void output(int *buffer, int length);
 int sum_numbers(int *buffer, int length);
-int find_numbers(int* buffer, int length, int number, int* numbers)
+int find_numbers(int *buffer, int length, int number, int *numbers);
 
-/*------------------------------------
-	Функция получает массив данных 
-	через stdin.
-	Выдает в stdout особую сумму
-	и сформированный массив 
-	специальных элементов
-	(выбранных с помощью найденной суммы):
-	это и будет частью ключа
--------------------------------------*/
-int main()
-{
-    
+int main() {
+    int n, sum, ans_n, data[NMAX], ans_data[NMAX];
+
+    if (input(data, &n) == 1 && n == 0) {
+        printf("n/a\n");
+    } else {
+        sum  = sum_numbers(data, n);
+        if (sum == 0) {
+            printf("n/a\n");
+        } else {
+            printf("%d\n", sum);
+            ans_n = find_numbers(data, n, sum, ans_data);
+            if (ans_n != 0)
+                output(ans_data, ans_n);
+            else
+                printf("n/a\n");
+        }
+    }
+    return 0;
 }
 
-/*------------------------------------
-	Функция должна находить
-	сумму четных элементов 
-	с 0-й позиции.
--------------------------------------*/
-int sum_numbers(int *buffer, int length)
-{
-	int sum = 0;
-	
-	for (int i = 1; i < length; i++)
-	{
-		if (i % 2 != 0)
-		{
-			sum = sum + buffer[i];
-		}
-	}
-	
-	return sum;
+int input(int *buffer, int *length) {
+    int flag = 0;
+
+    if (scanf("%d", length) == 1) {
+        for (int i = 0; i < *length; i++) {
+            if (scanf("%d", (buffer + i)) == 0) {
+                flag = 1;
+                break;
+            }
+        }
+    } else {
+        flag = 1;
+    }
+
+    return flag;
 }
 
-/*------------------------------------
-	Функция должна находить
-	все элементы, на которые нацело
-	делится переданное число и
-	записывает их в выходной массив.
--------------------------------------*/
-int find_numbers(int* buffer, int length, int number, int* numbers)
-{
+void output(int *buffer, int length) {
+    printf("%d", *buffer);
 
+    for (int i = 1; i < length; i++)
+        printf(" %d", buffer[i]);
+
+    printf("\n");
+}
+
+int sum_numbers(int *buffer, int length) {
+    int sum = 0;
+
+    for (int i = 0; i < length; i++)
+        if (buffer[i] % 2 == 0)
+            sum += buffer[i];
+
+    return sum;
+}
+
+int find_numbers(int *buffer, int length, int number, int *numbers) {
+    int length_numbers = 0;
+
+    for (int i = 0; i < length; i++) {
+        if ((buffer[i] != 0) && (number % buffer[i] == 0)) {
+            length_numbers++;
+            numbers[length_numbers - 1] = buffer[i];
+        }
+    }
+
+    return length_numbers;
 }
