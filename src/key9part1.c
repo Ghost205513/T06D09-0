@@ -10,7 +10,7 @@ int find_numbers(int *buffer, int length, int number, int *numbers);
 int main() {
     int n, sum, ans_n, data[NMAX], ans_data[NMAX];
 
-    if (input(data, &n) == 1 && n == 0) {
+    if (input(data, &n) == 1) {
         printf("n/a\n");
     } else {
         sum  = sum_numbers(data, n);
@@ -31,7 +31,7 @@ int main() {
 int input(int *buffer, int *length) {
     int flag = 0;
 
-    if (scanf("%d", length) == 1) {
+    if (scanf("%d", length) == 1 && *length > 0 && *length < 11) {
         for (int i = 0; i < *length; i++) {
             if (scanf("%d", (buffer + i)) == 0) {
                 flag = 1;
