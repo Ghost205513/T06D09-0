@@ -4,17 +4,17 @@
 
 int input(int *buffer, int *length);
 void output(int *buffer, int length);
-int sum_numbers(int *buffer, int length);
+int sum_numbers(int *buffer, int length, int *mod);
 int find_numbers(int *buffer, int length, int number, int *numbers);
 
 int main() {
-    int n, sum, ans_n, data[NMAX], ans_data[NMAX];
+    int n, mod, sum, ans_n, data[NMAX], ans_data[NMAX];
 
     if (input(data, &n) == 1) {
         printf("n/a\n");
     } else {
-        sum  = sum_numbers(data, n);
-        if (sum == 0) {
+        sum  = sum_numbers(data, n, &mod);
+        if (mod == 1) {
             printf("n/a\n");
         } else {
             printf("%d\n", sum);
@@ -54,13 +54,17 @@ void output(int *buffer, int length) {
     printf("\n");
 }
 
-int sum_numbers(int *buffer, int length) {
-    int sum = 0;
+int sum_numbers(int *buffer, int length, int *mod) {
+    int sum;
+
+    sum = 0;
+    *mod = 1;
 
     for (int i = 0; i < length; i++)
-        if (buffer[i] % 2 == 0)
+        if (buffer[i] % 2 == 0) {
             sum += buffer[i];
-
+            mod = 0;
+        }
     return sum;
 }
 
