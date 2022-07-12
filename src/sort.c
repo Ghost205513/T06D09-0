@@ -3,6 +3,7 @@
 int input(int *buffer, int length);
 void output(int *buffer, int length);
 void sort(int *array, int length);
+void qs(int *array, int left, int right);
 
 int main() {
     int data[10];
@@ -37,6 +38,10 @@ void output(int *buffer, int length) {
     printf("\n");
 }
 
+void sort(int *array, int length) {
+    qs(array, 0, length - 1);
+}
+
 void qs(int *array, int left, int right) {
     int i, j;
     int x;
@@ -66,8 +71,4 @@ void qs(int *array, int left, int right) {
 
     if (i < right)
         qs(array, i, right);
-}
-
-void sort(int *array, int length) {
-    qs(array, 0, length - 1);
 }
