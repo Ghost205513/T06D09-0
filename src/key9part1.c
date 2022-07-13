@@ -63,7 +63,7 @@ int sum_numbers(int *buffer, int length, int *mod) {
     for (int i = 0; i < length; i++)
         if (buffer[i] % 2 == 0) {
             sum += buffer[i];
-            mod = 0;
+            *mod = 0;
         }
     return sum;
 }
